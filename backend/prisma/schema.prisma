@@ -1,0 +1,213 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  HR
+  EMPLOYEE
+}
+
+enum EmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERN
+}
+
+enum EmployeeStatus {
+  ACTIVE
+  ON_LEAVE
+  TERMINATED
+}
+
+enum AttendanceStatus {
+  PRESENT
+  LATE
+  HALF_DAY
+  ABSENT
+}
+
+enum LeaveType {
+  CASUAL
+  SICK
+  ANNUAL
+  MATERNITY
+  UNPAID
+}
+
+enum LeaveStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum PayrollStatus {
+  DRAFT
+  PROCESSED
+  PAID
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String
+  role         Role      @default(EMPLOYEE)
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  employee     Employee?
+}
+
+model Department {
+  id          String     @id @default(uuid())
+  name        String     @unique
+  code        String     @unique
+  description String?
+  budget      Float      @default(0)
+  headId      String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  employees   Employee[]
+}
+
+model Employee {
+  id              String           @id @default(uuid())
+  employeeCode    String           @unique
+  firstName       String
+  lastName        String
+  email           String           @unique
+  phone           String?
+  avatar          String?
+  dateOfBirth     DateTime?
+  gender          String?
+  address         String?
+  designation     String
+  departmentId    String?
+  department      Department?      @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  joiningDate     DateTime         @default(now())
+  employmentType  EmploymentType   @default(FULL_TIME)
+  status          EmployeeStatus   @default(ACTIVE)
+  userId          String?          @unique
+  user            User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
+  attendances     Attendance[]
+  leaves          Leave[]
+  leaveBalances   LeaveBalance[]
+  salaryStructure SalaryStructure?
+  payrollRecords  PayrollRecord[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+}
+
+model Attendance {
+  id         String           @id @default(uuid())
+  employeeId String
+  employee   Employee         @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  date       DateTime         @db.Date
+  checkIn    DateTime?
+  checkOut   DateTime?
+  workHours  Float            @default(0)
+  status     AttendanceStatus @default(PRESENT)
+  notes      String?
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+
+  @@unique([employeeId, date])
+}
+
+model Leave {
+  id              String      @id @default(uuid())
+  employeeId      String
+  employee        Employee    @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  leaveType       LeaveType   @default(ANNUAL)
+  startDate       DateTime    @db.Date
+  endDate         DateTime    @db.Date
+  totalDays       Int         @default(1)
+  reason          String
+  status          LeaveStatus @default(PENDING)
+  reviewedBy      String?
+  rejectionReason String?
+  appliedAt       DateTime    @default(now())
+  reviewedAt      DateTime?
+}
+
+model LeaveBalance {
+  id          String   @id @default(uuid())
+  employeeId  String
+  employee    Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  year        Int      @default(2026)
+  annualTotal Int      @default(15)
+  annualUsed  Int      @default(0)
+  sickTotal   Int      @default(10)
+  sickUsed    Int      @default(0)
+  casualTotal Int      @default(10)
+  casualUsed  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([employeeId, year])
+}
+
+model SalaryStructure {
+  id               String   @id @default(uuid())
+  employeeId       String   @unique
+  employee         Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  basicSalary      Float    @default(0)
+  hra              Float    @default(0)
+  conveyance       Float    @default(0)
+  medicalAllowance Float    @default(0)
+  specialAllowance Float    @default(0)
+  pfDeduction      Float    @default(0)
+  taxDeduction     Float    @default(0)
+  otherDeductions  Float    @default(0)
+  netSalary        Float    @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model PayrollRecord {
+  id              String        @id @default(uuid())
+  employeeId      String
+  employee        Employee      @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  month           Int
+  year            Int
+  basicSalary     Float         @default(0)
+  totalAllowances Float         @default(0)
+  totalDeductions Float         @default(0)
+  netSalary       Float         @default(0)
+  paymentStatus   PayrollStatus @default(DRAFT)
+  paymentDate     DateTime?
+  notes           String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@unique([employeeId, month, year])
+}
+
+model CompanySetting {
+  id                 String   @id @default(uuid())
+  companyName        String   @default("Nexus Global Technologies")
+  companyEmail       String   @default("contact@nexusglobal.io")
+  companyPhone       String   @default("+1 (800) 555-0199")
+  companyAddress     String   @default("500 Silicon Vista Way, Suite 700, San Francisco, CA 94107")
+  currency           String   @default("$")
+  timezone           String   @default("America/Los_Angeles")
+  workingHoursPerDay Float    @default(8.0)
+  leavePolicy        String?  @default("Annual leave: 15 days, Sick leave: 10 days, Casual leave: 10 days. Approvals required 3 days in advance.")
+  updatedAt          DateTime @updatedAt
+}
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  actorId   String?
+  actorName String
+  action    String
+  module    String
+  details   String?
+  createdAt DateTime @default(now())
+}
