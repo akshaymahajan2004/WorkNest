@@ -65,10 +65,9 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
               borderRadius: 'var(--radius-lg)',
               backgroundColor: '#ffffff',
               boxShadow: 'var(--shadow-xl)',
-              border: `1px solid ${
-                t.type === 'success' ? 'var(--success-500)' :
-                t.type === 'error' ? 'var(--danger-500)' : 'var(--primary-500)'
-              }`,
+              border: `1px solid ${t.type === 'success' ? 'var(--success-500)' :
+                  t.type === 'error' ? 'var(--danger-500)' : 'var(--primary-500)'
+                }`,
               color: 'var(--slate-800)',
               fontSize: '0.875rem',
               fontWeight: 500
