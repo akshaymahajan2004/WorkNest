@@ -1,6 +1,6 @@
-# Nexus EMS — Enterprise System Walkthrough
+# WorkNest EMS — Enterprise System Walkthrough
 
-Nexus EMS is a production-grade, full-stack **Enterprise Employee Management System (EMS)** designed for modern workforce operations. It features a clean blue-and-white SaaS aesthetic, role-based access control (RBAC), modular architecture, real-time PostgreSQL database persistence via Prisma ORM, interactive data visualizations, and business intelligence reporting with CSV export.
+WorkNest EMS is a production-grade, full-stack **Enterprise Employee Management System (EMS)** designed for modern workforce operations. It features a clean blue-and-white SaaS aesthetic, role-based access control (RBAC), modular architecture, real-time PostgreSQL database persistence via Prisma ORM, interactive data visualizations, and business intelligence reporting with CSV export.
 
 ---
 
@@ -123,7 +123,6 @@ Visit **`http://localhost:5173`** to access the system.
 ## 📁 Key File References
 
 - **Setup Guide**: [`SETUP.md`](SETUP.md)
-- **Deployment Guide**: [`DEPLOYMENT.md`](DEPLOYMENT.md)
 - **Backend Entry Point**: [`backend/src/index.ts`](backend/src/index.ts)
 - **Express App & Routing**: [`backend/src/app.ts`](backend/src/app.ts)
 - **Database Schema**: [`backend/prisma/schema.prisma`](backend/prisma/schema.prisma)

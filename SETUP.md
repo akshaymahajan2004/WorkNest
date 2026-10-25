@@ -1,6 +1,6 @@
-# Nexus EMS — Setup & Installation Guide
+# WorkNest EMS — Setup & Installation Guide
 
-This document provides a step-by-step walkthrough for configuring, installing dependencies, launching the database, seeding realistic workforce data, and running the **Nexus Enterprise Employee Management System (EMS)** locally on your machine.
+This document provides a step-by-step walkthrough for configuring, installing dependencies, launching the database, seeding realistic workforce data, and running the **WorkNest Enterprise Employee Management System (EMS)** locally on your machine.
 
 ---
 

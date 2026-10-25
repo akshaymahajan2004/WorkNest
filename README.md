@@ -1,4 +1,4 @@
-# Nexus EMS — Enterprise Employee Management System
+# WorkNest EMS — Enterprise Employee Management System
 
 A complete, production-ready, full-stack **Employee Management System (EMS)** designed for modern enterprise workforce operations. Built with a blue-and-white SaaS aesthetic, role-based security, modular architecture, real-time database persistence, interactive dashboards, and business intelligence reporting with CSV export.
 
@@ -154,7 +154,7 @@ Use these credentials or click the **1-Click Demo Account** buttons on the login
 DATABASE_URL="postgresql://postgres:postgres@localhost:5433/ems_db?schema=public"
 PORT=5000
 NODE_ENV=development
-JWT_SECRET="super-secret-ems-jwt-key-change-in-production-2026"
+JWT_SECRET="super-secret-ems-jwt-key-change"
 JWT_EXPIRES_IN="7d"
 CLIENT_URL="http://localhost:5173"
 ```
@@ -166,9 +166,6 @@ CLIENT_URL="http://localhost:5173"
 ```text
 e:/EMS/
 ├── docker-compose.yml         # Containerized PostgreSQL (development)
-├── docker-compose.prod.yml    # Full-stack production orchestration (DB, API, Nginx)
-├── deploy.ps1                 # Automated 1-click Windows deployment script
-├── deploy.sh                  # Automated 1-click Linux/Cloud deployment script
 ├── .env.example               # Reference environment variables
 ├── README.md                  # Complete documentation and overview
 ├── SETUP.md                   # Step-by-step setup and installation guide
