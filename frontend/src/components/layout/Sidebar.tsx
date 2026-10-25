@@ -105,7 +105,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
           <div>
             <h1 style={{ fontSize: '1.125rem', fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.2 }}>
-              Nexus <span style={{ color: 'var(--primary-400)' }}>EMS</span>
+              WorkNest <span style={{ color: 'var(--primary-400)' }}>EMS</span>
             </h1>
             <span style={{ fontSize: '0.6875rem', color: 'var(--slate-400)', letterSpacing: '0.05em', textTransform: 'uppercase', fontWeight: 600 }}>
               Enterprise SaaS
