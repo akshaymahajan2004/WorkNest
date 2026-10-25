@@ -70,7 +70,7 @@ export const Login: React.FC = () => {
             <ShieldCheck size={28} color="#ffffff" />
           </div>
           <h1 style={{ fontSize: '1.625rem', fontWeight: 800, color: 'var(--slate-900)', letterSpacing: '-0.03em' }}>
-            Nexus <span style={{ color: 'var(--primary-600)' }}>EMS</span>
+            WorkNest <span style={{ color: 'var(--primary-600)' }}>EMS</span>
           </h1>
           <p style={{ fontSize: '0.875rem', color: 'var(--slate-500)', marginTop: '0.375rem' }}>
             Enterprise Employee Management & HR Intelligence
@@ -102,7 +102,7 @@ export const Login: React.FC = () => {
               <input
                 type="email"
                 className="input"
-                placeholder="name@nexusglobal.com"
+                placeholder="name@worknestglobal.com"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 style={{ paddingLeft: '2.5rem' }}
