@@ -40,7 +40,7 @@ const MainApp: React.FC = () => {
             }}
           />
           <p style={{ color: 'var(--slate-600)', fontWeight: 600, fontSize: '0.9375rem' }}>
-            Initializing Nexus Enterprise EMS...
+            Initializing WorkNest Enterprise EMS...
           </p>
         </div>
         <style>{`@keyframes spin { 100% { transform: rotate(360deg); } }`}</style>
